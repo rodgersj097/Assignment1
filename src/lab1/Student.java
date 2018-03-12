@@ -122,18 +122,13 @@ public class Student {
     }
 
     public void setStudentNum(int studentNum) {
-         try{
-            if(studentNum >0 )
-                 this.studentNum = studentNum; 
-           
-                    
-                
-            }catch(Exception IllegalArgumentsException){
-               if(studentNum <0 )
-                   System.err.println("You must have a postive studnt num"); 
-                
-    }
+         
+            if(studentNum < 0 )
+                  throw new IllegalArgumentException("number cannot be negative"); 
+            else 
+              this.studentNum = studentNum; 
 }
+    
     public LocalDate getDateOfBirth(){
         return birthday; 
         
@@ -143,6 +138,9 @@ public class Student {
     public void setDateOfBirth(LocalDate birthday){
     
         if(birthday.isAfter(birthday.minusYears(100)))
+        {
+            this.birthday = birthday;
+        }else
             throw new IllegalArgumentException("You must be under 100 years to be inrolled "); 
         
     }
@@ -151,14 +149,14 @@ public class Student {
         return birthday.getYear(); 
     }
 
-    int getAge() {
+    public int getAge() {
         LocalDate today = LocalDate.now(); 
         return Period.between(birthday, today).getYears(); 
         
         
     }
 
-    int getYearEnrolled() {
+    public int getYearEnrolled() {
         return dateEnrolled.getYear();
     }
 
